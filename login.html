@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - WinnerCanadaMaple</title>
+    <link rel="icon" href="./fav.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com/3.3.5"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+    
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-md mx-auto">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="./index.html" class="inline-flex items-center text-gray-400 hover:text-blue-500 transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+
+            <!-- Login Card -->
+            <div class="glass-card rounded-2xl p-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold mb-2">Welcome Back</h1>
+                    <p class="text-gray-400">Login to track your goals and achievements</p>
+                </div>
+
+                <!-- Added error banner for unified error messages -->
+                <div id="loginAlert" class="hidden mb-5 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v4m0 4h.01M10.29 3.86l-8.6 14.9A2 2 0 004.4 22h15.2a2 2 0 001.71-3.24l-8.6-14.9a2 2 0 00-3.42 0z"/>
+                        </svg>
+                        <div>
+                            <div class="font-semibold text-red-400">Login failed</div>
+                            <div id="loginAlertText" class="text-gray-200/90">
+                                Incorrect password or email not verified.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="loginForm" class="space-y-6">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="your.email@example.com"
+                            required
+                            autocomplete="email"
+                        >
+                        <div class="form-error" id="emailError">Please enter a valid email</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <div class="form-error" id="passwordError">Password is required</div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="remember" id="remember" class="form-checkbox">
+                            <span class="text-gray-400">Remember me</span>
+                        </label>
+                    </div>
+
+                    <!-- Updated button with disabled state management -->
+                    <button id="loginBtn" type="submit" class="w-full btn-primary py-3 rounded-lg font-semibold flex items-center justify-center transition">
+                        <span id="loginBtnText">Login</span>
+                        <span id="loginSpinner" class="spinner ml-2 hidden"></span>
+                    </button>
+
+                    <div class="text-center text-sm text-gray-400">
+                        Don't have an account? 
+                        <a href="./register.html" class="text-blue-500 hover:text-blue-400 transition font-semibold">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const emailEl = document.getElementById('email');
+        const passEl = document.getElementById('password');
+        const rememberEl = document.getElementById('remember');
+        const btnText = document.getElementById('loginBtnText');
+        const spinner = document.getElementById('loginSpinner');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginAlert = document.getElementById('loginAlert');
+        const loginAlertText = document.getElementById('loginAlertText');
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                btnText.textContent = 'Logging in...';
+                spinner.classList.remove('hidden', false);
+                loginBtn.disabled = true;
+                loginBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            } else {
+                btnText.textContent = 'Login';
+                spinner.classList.add('hidden');
+                loginBtn.disabled = false;
+                loginBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        function showAlert(message) {
+            loginAlertText.textContent = message;
+            loginAlert.classList.remove('hidden');
+        }
+
+        function hideAlert() {
+            loginAlert.classList.add('hidden');
+            loginAlertText.textContent = '';
+        }
+
+        // Hide errors as user types
+        emailEl.addEventListener('input', hideAlert);
+        passEl.addEventListener('input', hideAlert);
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideAlert();
+
+            const email = emailEl.value.trim();
+            const password = passEl.value;
+            const remember = rememberEl.checked;
+
+            setLoading(true);
+
+            try {
+                const response = await fetch('./login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&remember=${remember}`
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = data.redirect || './tickets.html';
+                    return;
+                }
+
+                // Unified error message for both wrong password and unverified email
+                const unifiedMsg = 'Incorrect password or email not verified.';
+                showAlert(unifiedMsg);
+
+            } catch (err) {
+                console.error('Login error:', err);
+                showAlert('An error occurred. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Numbers - WinnerCanadaMaple</title>
+    <link rel="icon" href="./fav.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com/3.3.5"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-black text-white">
+    
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-30 glass-header">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="./index.html" class="brand-logo">
+                    <svg class="w-7 h-7" viewBox="0 0 64 64" fill="none" role="img" aria-label="Maple leaf">
+                        <path d="M32 8L24 26H10l18 13-6 22 18-13 18 13-6-22 18-13H40z" fill="currentColor" stroke="#fff" stroke-width="2"/>
+                    </svg>
+                    <span>WinnerCanadaMaple</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="./index.html" class="nav-link">Home</a>
+                    <a href="./index.html#about" class="nav-link">About</a>
+                    <a href="./index.html#games" class="nav-link">Games</a>
+                    <a href="./contacts.html" class="nav-link">Contacts</a>
+                </div>
+
+                <button id="burgerMenu" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-12 min-h-screen">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    Select Your <span class="text-red-500">Numbers</span>
+                </h1>
+                <p class="text-gray-400 text-lg">Choose your lucky numbers and add tickets to cart</p>
+            </div>
+
+            <div class="text-center mb-10">
+                <p class="text-sm uppercase tracking-[0.3em] text-red-400 mb-3">Premium experiences</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Explore Our Game Collection</h2>
+                <p class="text-gray-400 max-w-3xl mx-auto">
+                    Handpicked ticket drops built for atmosphere, competition, and cinematic flair. Each pack includes collectible stats, live odds, and community access.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-12">
+                <article class="bg-gradient-to-b from-gray-900 to-black rounded-3xl overflow-hidden shadow-2xl border border-gray-800">
+                    <img src="./images/2.png" alt="Digital Warfare art" class="w-full h-56 object-cover">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between text-xs uppercase tracking-[0.4em] text-gray-400">
+                            <span>Action / Multiplayer</span>
+                            <span class="text-red-400 bg-white/5 px-3 py-1 rounded-full text-[0.65rem] font-semibold">Popular</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white">Digital Warfare</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Tactical arenas with rapid draws. Coordinate squads, adjust strategies, and ride the thrill of clutch plays.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-yellow-400">
+                            <span>★ 4.8</span>
+                            <span>12K Players</span>
+                        </div>
+                        <button onclick="addGameOffer('digitalWarfare')" class="btn-primary w-full py-3 rounded-full font-semibold mt-4">
+                            Book Now →
+                        </button>
+                    </div>
+                </article>
+                <article class="bg-gradient-to-b from-gray-900 to-black rounded-3xl overflow-hidden shadow-2xl border border-gray-800">
+                    <img src="./images/3.png" alt="Mystic Realms art" class="w-full h-56 object-cover">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between text-xs uppercase tracking-[0.4em] text-gray-400">
+                            <span>RPG / Adventure</span>
+                            <span class="text-blue-400 bg-white/5 px-3 py-1 rounded-full text-[0.65rem] font-semibold">New</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white">Mystic Realms</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Embark on an epic adventure through enchanted lands. Discover hidden treasures and unlock powerful abilities.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-yellow-400">
+                            <span>★ 4.9</span>
+                            <span>8K Players</span>
+                        </div>
+                        <button onclick="addGameOffer('mysticRealms')" class="btn-primary w-full py-3 rounded-full font-semibold mt-4">
+                            Book Now →
+                        </button>
+                    </div>
+                </article>
+                <article class="bg-gradient-to-b from-gray-900 to-black rounded-3xl overflow-hidden shadow-2xl border border-gray-800">
+                    <img src="./images/4.png" alt="Velocity Rush art" class="w-full h-56 object-cover">
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between text-xs uppercase tracking-[0.4em] text-gray-400">
+                            <span>Racing / Sports</span>
+                            <span class="text-emerald-400 bg-white/5 px-3 py-1 rounded-full text-[0.65rem] font-semibold">Trending</span>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-white">Velocity Rush</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Neon-night circuits and gravity-defying drifts deliver a high-octane rush that sells out fast.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-yellow-400">
+                            <span>★ 4.7</span>
+                            <span>15K Players</span>
+                        </div>
+                        <button onclick="addGameOffer('velocityRush')" class="btn-primary w-full py-3 rounded-full font-semibold mt-4">
+                            Book Now →
+                        </button>
+                    </div>
+                </article>
+            </div>
+
+            <div class="mt-12">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                    <h3 class="text-3xl font-bold text-white">Ticket Bundles</h3>
+                    <p class="text-gray-400 max-w-xl">
+                        Choose a curated ticket bundle and proceed to checkout instantly. Each bundle auto-populates the cart so you can secure your seat.
+                    </p>
+                </div>
+                <div class="bundle-grid">
+                    <div class="bundle-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-[0.4em] text-gray-400">Starter</span>
+                            <span class="text-red-400 font-semibold">$15</span>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white">Solo Collector</h4>
+                        <p class="text-gray-400 text-sm">Perfect for one player — includes 3 curated tickets with priority support.</p>
+                        <button onclick="addBundle('starter')" class="btn-secondary mt-auto">
+                            Add Starter Bundle
+                        </button>
+                    </div>
+                    <div class="bundle-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-[0.4em] text-gray-400">Premium</span>
+                            <span class="text-red-400 font-semibold">$35</span>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white">Team Blitz</h4>
+                        <p class="text-gray-400 text-sm">Includes 7 tickets + 2 bonus entries, built for squads chasing massive jackpots.</p>
+                        <button onclick="addBundle('premium')" class="btn-secondary mt-auto">
+                            Add Premium Bundle
+                        </button>
+                    </div>
+                    <div class="bundle-card">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs uppercase tracking-[0.4em] text-gray-400">Elite</span>
+                            <span class="text-red-400 font-semibold">$60</span>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white">Event Vault</h4>
+                        <p class="text-gray-400 text-sm">All-access bundle with 12 tickets, expedited checkout, and live draw notifications.</p>
+                        <button onclick="addBundle('elite')" class="btn-secondary mt-auto">
+                            Add Event Bundle
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Section -->
+            <div class="glass-card rounded-[38px] p-8 max-w-3xl mx-auto relative overflow-hidden cart-highlight enhanced-cart">
+                <div class="cart-aurora" aria-hidden="true"></div>
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h3 class="text-3xl font-bold tracking-tight">Cart</h3>
+                        <p class="text-sm text-gray-400 uppercase tracking-[0.3em]">Ready when you are</p>
+                    </div>
+                    <div class="cart-count cart-count-lg">
+                        <span id="cartCount">0</span>
+                    </div>
+                </div>
+
+                <div id="cartItems" class="mb-6 space-y-3">
+                    <div class="text-center text-gray-400 py-8">
+                        No tickets yet. Add a ticket from any game.
+                    </div>
+                </div>
+
+                <div class="cart-totals space-y-4">
+                    <div class="flex items-center justify-between text-gray-400 text-base">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-gray-400 text-base">
+                        <span>Estimated taxes</span>
+                        <span id="taxes">$0.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-2xl font-bold pt-4 border-t border-gray-700 text-white">
+                        <span>Total</span>
+                        <span id="total" class="text-red-500">$0.00</span>
+                    </div>
+                </div>
+
+                <button onclick="checkout()" class="w-full btn-primary py-4 rounded-full font-semibold text-lg mt-6 relative z-10">
+                    Proceed to Checkout
+                </button>
+            </div>
+
+            <div id="footerMountPoint"></div>
+        </div>
+    </main>
+
+    <!-- Register Modal (shown at checkout if not logged in) -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content max-w-md mx-auto">
+            <button onclick="closeRegisterModal()" class="modal-close">&times;</button>
+            <h2 class="text-3xl font-bold mb-2">Create Account</h2>
+            <p class="text-gray-400 mb-6">Register to complete your purchase</p>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="registerName" class="form-input" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="registerEmail" class="form-input" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="registerPassword" class="form-input" placeholder="Minimum 6 characters" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" class="form-input" placeholder="Repeat password" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="registerTerms" class="form-checkbox" required>
+                        <span class="text-sm text-gray-300">I agree to the <a href="./terms.html" class="text-red-500 hover:underline">Terms & Conditions</a></span>
+                    </label>
+                </div>
+
+                <div id="registerError" class="form-error" style="display: none;"></div>
+
+                <button type="submit" class="w-full btn-primary py-3 rounded-lg font-semibold mt-4">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="text-center text-gray-400 text-sm mt-6">
+                Already have an account? <button onclick="switchToLogin()" class="text-red-500 hover:underline font-semibold">Login</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content max-w-md mx-auto">
+            <button onclick="closeLoginModal()" class="modal-close">&times;</button>
+            <h2 class="text-3xl font-bold mb-2">Welcome Back</h2>
+            <p class="text-gray-400 mb-6">Login to complete your purchase</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Your password" required>
+                </div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="form-checkbox">
+                        <span class="text-sm text-gray-300">Remember me</span>
+                    </label>
+                    <a href="./forgot.html" class="text-sm text-red-500 hover:underline">Forgot Password?</a>
+                </div>
+
+                <div id="loginError" class="form-error" style="display: none;"></div>
+
+                <button type="submit" class="w-full btn-primary py-3 rounded-lg font-semibold">
+                    Login
+                </button>
+            </form>
+
+            <p class="text-center text-gray-400 text-sm mt-6">
+                Don't have an account? <button onclick="switchToRegister()" class="text-red-500 hover:underline font-semibold">Register</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Email Confirmation Modal -->
+    <div id="emailConfirmModal" class="modal">
+        <div class="modal-content max-w-md mx-auto text-center">
+            <div class="mb-6">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold mb-3">Thank you for registering!</h2>
+            <p class="text-gray-400 mb-4">Please check your inbox and confirm your account.</p>
+            <button onclick="closeEmailConfirmModal()" class="btn-primary px-8 py-3 rounded-lg font-semibold">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/footer.js"></script>
+</body>
+</html>

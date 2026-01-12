@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Gaming Experience</title>
+    <meta name="description" content="Experience the ultimate gaming platform with cutting-edge technology and immersive entertainment">
+    <link rel="icon" href="./fav.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com/3.3.5"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    
+    <!-- Added animated background decorations -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Age Verification Popup -->
+    <div id="ageVerificationModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95 backdrop-blur-sm">
+        <div class="glass-card p-8 md:p-12 max-w-md w-full mx-4 text-center relative overflow-hidden">
+            <!-- Added decorative elements to modal -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-red-500 opacity-10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-red-500 opacity-10 rounded-full blur-3xl"></div>
+            
+            <div class="text-red-500 text-6xl mb-6 relative">
+                <svg class="w-20 h-20 mx-auto animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold mb-4 relative">Age Verification</h2>
+            <p class="text-gray-300 mb-8 relative">You must be 18 years or older to access this website. Please confirm your age to continue.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center relative">
+                <button onclick="confirmAge(true)" class="btn-primary px-8 py-3 rounded-lg font-semibold">I'm 18 or Older</button>
+                <button onclick="confirmAge(false)" class="bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg font-semibold transition">Under 18</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cookie Consent -->
+    <div id="cookieConsent" class="fixed bottom-0 left-0 right-0 z-40 p-4 glass-card border-t border-gray-800 hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-300">We use cookies to enhance your browsing experience. By continuing to use this site, you agree to our use of cookies.</p>
+            <div class="flex gap-3">
+                <a href="./cookies.html" class="text-red-500 hover:text-red-400 text-sm underline">Learn More</a>
+                <button onclick="acceptCookies()" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg text-sm font-semibold transition">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-30 glass-header">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="./index.html" class="brand-logo">
+                        <svg class="w-8 h-8 text-red-500" viewBox="0 0 64 64" fill="none" role="img" aria-label="Maple leaf">
+                            <path d="M32 8L24 26H10l18 13-6 22 18-13 18 13-6-22 18-13H40z" fill="currentColor" stroke="white" stroke-width="2"/>
+                        </svg>
+                        <span>WinnerCanadaMaple</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#games" class="nav-link">Games</a>
+                    <a href="./contacts.html" class="nav-link">Contacts</a>
+                    <a href="./login.html" class="nav-link">Login</a>
+                    <a href="./register.html" class="btn-primary px-6 py-2 rounded-lg">Register</a>
+                </div>
+
+                <button id="burgerMenu" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#games" class="nav-link">Games</a>
+                    <a href="./contacts.html" class="nav-link">Contacts</a>
+                    <a href="./login.html" class="nav-link text-left">Login</a>
+                    <a href="./register.html" class="btn-primary px-6 py-2 rounded-lg block text-center">Register</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 relative">
+        <!-- Added decorative grid and glow effects -->
+        <div class="absolute inset-0 grid-background opacity-20"></div>
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-red-500 opacity-10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500 opacity-10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="relative group">
+                        <!-- Added glow effects and badges to image -->
+                        <div class="absolute -inset-4 bg-gradient-to-r from-red-600 to-blue-600 rounded-2xl opacity-20 blur-2xl group-hover:opacity-30 transition duration-500"></div>
+                       <!-- Video (replaces image) -->
+<div class="relative z-10 rounded-2xl overflow-hidden glass-image">
+  <video
+    class="w-full h-auto block"
+    src="./images/1.mp4"
+    
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+  ></video>
+</div>
+
+                        <div class="absolute top-4 left-4 glass-card px-4 py-2 animate-pulse">
+                            <span class="text-red-500 font-semibold flex items-center gap-2">
+                                <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
+                                LIVE NOW
+                            </span>
+                        </div>
+                        <!-- Added floating stats badges -->
+                        <div class="absolute bottom-4 right-4 glass-card px-4 py-2">
+                            <div class="text-sm text-gray-400">Online Players</div>
+                            <div class="text-2xl font-bold text-red-500">50,241</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 md:order-2">
+                    <div class="inline-block glass-card px-4 py-2 mb-6 animate-fade-in-up">
+                        <span class="text-red-500 font-semibold">🎮 NEW GENERATION</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.1s;">
+                        Experience The
+                        <span class="text-red-500 block relative">
+                            Future of Gaming
+                            <!-- Added underline decoration -->
+                            <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-transparent"></span>
+                        </span>
+                    </h1>
+                    <p class="text-gray-300 text-lg mb-8 leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">
+                        Step into a world where cutting-edge technology meets immersive entertainment. 
+                        Join thousands of players in the most advanced gaming ecosystem designed for true enthusiasts.
+                    </p>
+                    <div class="flex flex-wrap gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <a href="./tickets.html" class="btn-primary px-8 py-4 rounded-lg text-lg font-semibold inline-block group">
+                            Get Started
+                            <span class="inline-block group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+                       
+                    </div>
+                    <!-- Enhanced stats with icons and animations -->
+                    <div class="grid grid-cols-3 gap-6 mt-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform">
+                            <div class="text-3xl font-bold text-red-500 mb-2">50K+</div>
+                            <div class="text-gray-400 text-sm flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                                </svg>
+                                Active Players
+                            </div>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform" style="transition-delay: 0.1s;">
+                            <div class="text-3xl font-bold text-red-500 mb-2">100+</div>
+                            <div class="text-gray-400 text-sm flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                                </svg>
+                                Game Titles
+                            </div>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl hover:scale-105 transition-transform" style="transition-delay: 0.2s;">
+                            <div class="text-3xl font-bold text-red-500 mb-2">24/7</div>
+                            <div class="text-gray-400 text-sm flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668zM12 10a2 2 0 11-4 0 2 2 0 014 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Support
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <!-- Added section decorations -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-red-500 to-transparent"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block glass-card px-4 py-2 mb-6 animate-fade-in-left">
+                        <span class="text-red-500 font-semibold">⚡ OUR PHILOSOPHY</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-left" style="animation-delay: 0.1s;">
+                        Built By Gamers,
+                        <span class="text-red-500 relative">
+                            For Gamers
+                            <span class="absolute bottom-0 left-0 w-1/2 h-1 bg-red-500"></span>
+                        </span>
+                    </h2>
+                    <p class="text-gray-300 text-lg mb-6 leading-relaxed animate-fade-in-left" style="animation-delay: 0.2s;">
+                        We understand what it takes to create the perfect gaming environment. 
+                        Our platform is designed with player experience at its core, combining 
+                        innovative technology with intuitive design.
+                    </p>
+                    <p class="text-gray-300 text-lg mb-8 leading-relaxed animate-fade-in-left" style="animation-delay: 0.3s;">
+                        Every feature, every interaction, and every detail has been carefully 
+                        crafted to ensure you have the most seamless and enjoyable experience possible. 
+                        Join our community and discover what sets us apart.
+                    </p>
+                    
+                    <!-- Enhanced feature list with hover effects and icons -->
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 glass-card p-4 rounded-xl hover:bg-red-600 hover:bg-opacity-10 transition-all group cursor-pointer">
+                            <div class="text-red-500 mt-1 bg-red-500 bg-opacity-20 p-2 rounded-lg group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Premium Experience</h3>
+                                <p class="text-gray-400">State-of-the-art platform with lightning-fast performance</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 glass-card p-4 rounded-xl hover:bg-red-600 hover:bg-opacity-10 transition-all group cursor-pointer">
+                            <div class="text-red-500 mt-1 bg-red-500 bg-opacity-20 p-2 rounded-lg group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Safe & Secure</h3>
+                                <p class="text-gray-400">Advanced security measures to protect your data</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 glass-card p-4 rounded-xl hover:bg-red-600 hover:bg-opacity-10 transition-all group cursor-pointer">
+                            <div class="text-red-500 mt-1 bg-red-500 bg-opacity-20 p-2 rounded-lg group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Community First</h3>
+                                <p class="text-gray-400">Join a vibrant community of passionate players</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="./about.html" class="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 transition font-semibold text-white group">
+                        Learn more about us
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="relative">
+                    <!-- Added multiple decorative layers to image -->
+                    <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-red-600 rounded-2xl opacity-20 blur-2xl animate-pulse-slow"></div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
+                        <div class="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-red-500 rounded-tr-2xl"></div>
+                        <div class="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-red-500 rounded-bl-2xl"></div>
+                    </div>
+                    <img src="./images/1.png" 
+                         alt="State-of-the-art gaming workstation featuring multiple high-resolution displays" 
+                         class="rounded-2xl w-full glass-image relative z-10">
+                    <div class="absolute bottom-4 right-4 glass-card p-4 animate-float">
+                        <div class="text-2xl font-bold text-red-500">2025</div>
+                        <div class="text-sm text-gray-300">Next Generation</div>
+                    </div>
+                    <!-- Added floating decorative elements -->
+                    <div class="absolute top-10 -left-4 glass-card p-3 animate-float" style="animation-delay: 0.5s;">
+                        <div class="text-red-500 font-bold">⚡</div>
+                    </div>
+                    <div class="absolute top-1/3 -right-4 glass-card p-3 animate-float" style="animation-delay: 1s;">
+                        <div class="text-red-500 font-bold">🎮</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-24 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
+        <!-- Added animated grid background -->
+        <div class="absolute inset-0 grid-background opacity-10"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
+            <div class="absolute top-0 left-1/4 w-64 h-64 bg-red-500 opacity-5 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-500 opacity-5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-block glass-card px-4 py-2 mb-6 animate-fade-in">
+                    <span class="text-red-500 font-semibold">🎯 FEATURED GAMES</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in" style="animation-delay: 0.1s;">
+                    Explore Our
+                    <span class="text-red-500 relative">
+                        Game Collection
+                        <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></span>
+                    </span>
+                </h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto animate-fade-in" style="animation-delay: 0.2s;">
+                    Discover our handpicked selection of premium gaming experiences designed to challenge and entertain
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Enhanced game cards with advanced hover effects and decorations -->
+                <div class="game-card glass-card rounded-2xl overflow-hidden group cursor-pointer transform hover:scale-105 transition-all duration-500">
+                    <div class="relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-red-600 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-10"></div>
+                        <img src="./images/2.png" 
+                             alt="Intense multiplayer battle scene with dynamic combat mechanics" 
+                             class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-red-600 px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                            POPULAR
+                        </div>
+                        <!-- Added floating stats overlay -->
+                        <div class="absolute top-4 left-4 glass-card px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="text-xs text-gray-300">Rating</div>
+                            <div class="text-yellow-500 font-bold">4.8★</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Action / Multiplayer</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-red-500 transition-colors">Digital Warfare</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            Experience intense tactical gameplay in this fast-paced competitive environment. 
+                            Master your strategy and dominate the arena.
+                        </p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-gray-300 font-semibold">4.8</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-gray-500">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                                </svg>
+                                12K Players
+                            </div>
+                        </div>
+                        <a href="./tickets.html" class="block w-full text-center btn-primary py-3 rounded-lg font-semibold group">
+                            Play Now
+                            <span class="inline-block group-hover:translate-x-1 transition-transform ml-2">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="game-card glass-card rounded-2xl overflow-hidden group cursor-pointer transform hover:scale-105 transition-all duration-500" style="transition-delay: 0.1s;">
+                    <div class="relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-600 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-10"></div>
+                        <img src="./images/3.png" 
+                             alt="Expansive fantasy realm featuring mythical creatures and enchanted environments" 
+                             class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-blue-600 px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                            NEW
+                        </div>
+                        <div class="absolute top-4 left-4 glass-card px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="text-xs text-gray-300">Rating</div>
+                            <div class="text-yellow-500 font-bold">4.9★</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">RPG / Adventure</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-500 transition-colors">Mystic Realms</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            Embark on an epic adventure through enchanted lands. Discover hidden treasures 
+                            and unlock powerful abilities in this immersive world.
+                        </p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-gray-300 font-semibold">4.9</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-gray-500">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                                </svg>
+                                8K Players
+                            </div>
+                        </div>
+                        <a href="./tickets.html" class="block w-full text-center btn-primary py-3 rounded-lg font-semibold group">
+                            Play Now
+                            <span class="inline-block group-hover:translate-x-1 transition-transform ml-2">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="game-card glass-card rounded-2xl overflow-hidden group cursor-pointer transform hover:scale-105 transition-all duration-500" style="transition-delay: 0.2s;">
+                    <div class="relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-green-600 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500 z-10"></div>
+                        <img src="./images/4.png" 
+                             alt="Adrenaline-fueled street racing scene with customizable high-performance vehicles" 
+                             class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-green-600 px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                            TRENDING
+                        </div>
+                        <div class="absolute top-4 left-4 glass-card px-3 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div class="text-xs text-gray-300">Rating</div>
+                            <div class="text-yellow-500 font-bold">4.7★</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Racing / Sports</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 group-hover:text-green-500 transition-colors">Velocity Rush</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            Push your limits in this high-octane experience. Race against time and opponents 
+                            in stunning environments with realistic mechanics.
+                        </p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-gray-300 font-semibold">4.7</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-gray-500">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                                </svg>
+                                15K Players
+                            </div>
+                        </div>
+                        <a href="./tickets.html" class="block w-full text-center btn-primary py-3 rounded-lg font-semibold group">
+                            Play Now
+                            <span class="inline-block group-hover:translate-x-1 transition-transform ml-2">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="./tickets.html" class="inline-flex items-center gap-2 glass-card px-8 py-4 rounded-lg font-semibold hover:bg-white hover:bg-opacity-20 transition group">
+                    View All Games
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="py-24 relative">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-block glass-card px-4 py-2 mb-6">
+                    <span class="text-red-500 font-semibold">💎 WHY CHOOSE US</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    What Makes Us
+                    <span class="text-red-500 relative">
+                        Different
+                        <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent"></span>
+                    </span>
+                </h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    We're committed to delivering an unparalleled gaming experience with features that matter most to players
+                </p>
+            </div>
+
+            <!-- Enhanced feature grid with advanced hover effects -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="glass-card p-8 rounded-2xl text-center group hover:bg-red-600 hover:bg-opacity-10 transition duration-300 cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 mx-auto mb-6 bg-red-600 bg-opacity-20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform relative">
+                        <div class="absolute inset-0 bg-red-500 opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                        <svg class="w-8 h-8 text-red-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Lightning Fast</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Experience zero lag with our optimized infrastructure and cutting-edge technology
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl text-center group hover:bg-red-600 hover:bg-opacity-10 transition duration-300 cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 mx-auto mb-6 bg-red-600 bg-opacity-20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform relative">
+                        <div class="absolute inset-0 bg-red-500 opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                        <svg class="w-8 h-8 text-red-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Secure Platform</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Your data and privacy are protected with bank-level security encryption
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl text-center group hover:bg-red-600 hover:bg-opacity-10 transition duration-300 cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 mx-auto mb-6 bg-red-600 bg-opacity-20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform relative">
+                        <div class="absolute inset-0 bg-red-500 opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                        <svg class="w-8 h-8 text-red-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Active Community</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Join thousands of players and make lasting connections in our vibrant community
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl text-center group hover:bg-red-600 hover:bg-opacity-10 transition duration-300 cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-16 h-16 mx-auto mb-6 bg-red-600 bg-opacity-20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform relative">
+                        <div class="absolute inset-0 bg-red-500 opacity-20 rounded-full blur-xl group-hover:blur-2xl transition-all"></div>
+                        <svg class="w-8 h-8 text-red-500 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Our dedicated support team is always available to assist you whenever you need help
+                    </p>
+                </div>
+            </div>
+
+            <!-- Enhanced info cards with images and animations -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-2xl group hover:scale-105 transition-transform duration-500 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-500 opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity"></div>
+                    <img src="./images/5.png" 
+                         alt="Dedicated support specialists providing assistance to gaming community members" 
+                         class="rounded-xl w-full mb-6 h-48 object-cover relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-red-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold">Dedicated Support Team</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4 leading-relaxed relative z-10">
+                        Our experienced support professionals are passionate gamers themselves. They understand 
+                        your needs and are committed to providing quick, effective solutions to any issues you might encounter.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl group hover:scale-105 transition-transform duration-500 relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-500 opacity-5 rounded-full blur-3xl group-hover:opacity-10 transition-opacity"></div>
+                    <img src="./images/6.png" 
+                         alt="Vibrant gaming community gathering showcasing player engagement and social interaction" 
+                         class="rounded-xl w-full mb-6 h-48 object-cover relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold">Thriving Community</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4 leading-relaxed relative z-10">
+                        Connect with players from around the world. Share strategies, form teams, and participate 
+                        in exclusive events. Our community is built on respect, passion, and the love of gaming.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer placeholder -->
+    <div id="footerMountPoint"></div>
+
+    <!-- Email Confirmation Modal -->
+    <div id="emailConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm hidden">
+        <div class="glass-card p-8 md:p-12 max-w-md w-full mx-4 text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-green-500 opacity-10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-green-500 opacity-10 rounded-full blur-3xl"></div>
+            
+            <div class="text-green-500 text-6xl mb-6 relative animate-bounce-slow">
+                <svg class="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold mb-4 relative">Registration Successful!</h2>
+            <p class="text-xl text-gray-300 mb-4 relative">Confirm Your Email</p>
+            <p class="text-gray-400 text-sm mb-8 relative">Please check your email and verify your account to complete registration.</p>
+            <button onclick="closeEmailConfirmModal()" class="btn-primary px-8 py-3 rounded-lg font-semibold relative">Got it</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/footer.js"></script>
+</body>
+</html>
